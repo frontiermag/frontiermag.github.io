@@ -8,29 +8,39 @@ author: "Крис Бимс"
 translator: "Ирина Нитченко"
 
 ---
-<a href='http://xkcd.com/1296/'><img src='http://imgs.xkcd.com/comics/git_commit.png' alt='xkcd: git commit'/></a>
+
+<style>
+.correct {
+  color: green;
+}
+.wrong {
+  color: red;
+}
+</style>
+
+<a href='http://xkcd.com/1296/'><img src='http://imgs.xkcd.com/comics/git_commit.png' class="full-width" alt='xkcd: git commit'/></a>
 
 ## Вступление: почему важны сообщения коммитов.
 
 Если посмотреть лог любого случайного репозитория, то в описании коммитов будет, в той или иной степени, беспорядок. Например, эти [шедевральные сообщения](https://github.com/spring-projects/spring-framework/commits/e5f4b49?author=cbeams) я оставил когда начал контрибьютить в Spring.
 
->     $ git log --oneline -5 --author cbeams --before "Fri Mar 26 2009"
->     
->     e5f4b49 Re-adding ConfigurationPostProcessorTests after its brief removal in r814. @Ignore-ing the testCglibClassesAreLoadedJustInTimeForEnhancement() method as it turns out this was one of the culprits in the recent build breakage. The classloader hacking causes subtle downstream effects, breaking unrelated tests. The test method is still useful, but should only be run on a manual basis to ensure CGLIB is not prematurely classloaded, and should not be run as part of the automated build.
->     2db0f12 fixed two build-breaking issues: + reverted ClassMetadataReadingVisitor to revision 794 + eliminated ConfigurationPostProcessorTests until further investigation determines why it causes downstream tests to fail (such as the seemingly unrelated ClassPathXmlApplicationContextTests)
->     147709f Tweaks to package-info.java files
->     22b25e0 Consolidated Util and MutableAnnotationUtils classes into existing AsmUtils
->     7f96f57 polishing
+     $ git log --oneline -5 --author cbeams --before "Fri Mar 26 2009"
+     
+     e5f4b49 Re-adding ConfigurationPostProcessorTests after its brief removal in r814. @Ignore-ing the testCglibClassesAreLoadedJustInTimeForEnhancement() method as it turns out this was one of the culprits in the recent build breakage. The classloader hacking causes subtle downstream effects, breaking unrelated tests. The test method is still useful, but should only be run on a manual basis to ensure CGLIB is not prematurely classloaded, and should not be run as part of the automated build.
+     2db0f12 fixed two build-breaking issues: + reverted ClassMetadataReadingVisitor to revision 794 + eliminated ConfigurationPostProcessorTests until further investigation determines why it causes downstream tests to fail (such as the seemingly unrelated ClassPathXmlApplicationContextTests)
+     147709f Tweaks to package-info.java files
+     22b25e0 Consolidated Util and MutableAnnotationUtils classes into existing AsmUtils
+     7f96f57 polishing
 
 Упс. И сравните это с [более поздними](https://github.com/spring-projects/spring-framework/commits/5ba3db?author=philwebb) коммитами из того же репозитория:
 
->     $ git log --oneline -5 --author pwebb --before "Sat Aug 30 2014"
->     
->     5ba3db6 Fix failing CompositePropertySourceTests
->     84564a0 Rework @PropertySource early parsing logic
->     e142fd1 Add tests for ImportSelector meta-data
->     887815f Update docbook dependency and generate epub
->     ac8326d Polish mockito usage
+     $ git log --oneline -5 --author pwebb --before "Sat Aug 30 2014"
+     
+     5ba3db6 Fix failing CompositePropertySourceTests
+     84564a0 Rework @PropertySource early parsing logic
+     e142fd1 Add tests for ImportSelector meta-data
+     887815f Update docbook dependency and generate epub
+     ac8326d Polish mockito usage
 
 Какие лучше читаются?
 
@@ -82,10 +92,10 @@ translator: "Ирина Нитченко"
 1. Отделяйте заголовок от содержимого коммита пустой строкой
 2. Уложите заголовок в 50 символов
 3. Пишите заголовок с заглавной буквы
-1. Не ставьте точку в конце заголовка
-1. Используйте повелительное наклонение в заголовке
-1. Ограничьте длину строк в сообщении 72 символами
-1. В сообщении пишите что и почему сделано, а не как
+4. Не ставьте точку в конце заголовка
+5. Используйте повелительное наклонение в заголовке
+6. Ограничьте длину строк в сообщении 72 символами
+7. В сообщении пишите что и почему сделано, а не как
 
 Например:
 
@@ -208,11 +218,11 @@ UI гитхаба в курсе этого правила и предупреж�
 
 Например:
 
-<span style="color:green">- Accelerate to 88 miles per hour</span>
+<span class="correct">- Accelerate to 88 miles per hour</span>
 
 А не
 
-<span style="color:red">- accelerate to 88 miles per hour</span>
+<span class="wrong">- accelerate to 88 miles per hour</span>
 
 
 
@@ -223,11 +233,11 @@ UI гитхаба в курсе этого правила и предупреж�
 
 Например
 
-<span style="color:green">- Open the pod bay doors</span>
+<span class="correct">- Open the pod bay doors</span>
 
 Вместо
 
-<span style="color:red">- Open the pod bay doors.</span>
+<span class="wrong">- Open the pod bay doors.</span>
 
 
 
@@ -261,24 +271,24 @@ UI гитхаба в курсе этого правила и предупреж�
 
 Так что когда вы пишите сообщение коммита в повелительном наклонении, вы следуете внутреннему соглашению гита:
 
-<span style="color:green">- Refactor subsystem X for readability</span>
-<span style="color:green">- Update getting started documentation</span>
-<span style="color:green">- Remove deprecated methods</span>
-<span style="color:green">- Release version 1.0.0</span>
+<span class="correct">- Refactor subsystem X for readability</span>
+<span class="correct">- Update getting started documentation</span>
+<span class="correct">- Remove deprecated methods</span>
+<span class="correct">- Release version 1.0.0</span>
 
 
 Сначала писать так может быть неловко. Обычно мы используем *изъявительное* наклонение (оно сообщает о фактах) и поэтому сообщения к коммитам выглядят так:
 
-<span style="color:red">- Fixed bug with Y</span>
+<span class="wrong">- Fixed bug with Y</span>
 
-<span style="color:red">- Changing behavior of X</span>
+<span class="wrong">- Changing behavior of X</span>
 
 
 Иногда описывается их содержимое
 
-<span style="color:red">- More fixes for broken stuff</span>
+<span class="wrong">- More fixes for broken stuff</span>
 
-<span style="color:red">- Sweet new API methods</span>
+<span class="wrong">- Sweet new API methods</span>
 
 
 Чтобы избежать недоразумений, есть простое правило:
@@ -288,11 +298,11 @@ UI гитхаба в курсе этого правила и предупреж�
 
 Например
 
-- If applied, this commit will <span style="color:green">refactor subsystem X for readability</span>
-- If applied, this commit will <span style="color:green">update getting started documentation</span>
-- If applied, this commit will <span style="color:green">remove deprecated methods</span>
-- If applied, this commit will <span style="color:green">release version 1.0.0</span>
-- If applied, this commit will <span style="color:green">merge pull request #123 from user/branch</span>
+- If applied, this commit will <span class="correct">refactor subsystem X for readability</span>
+- If applied, this commit will <span class="correct">update getting started documentation</span>
+- If applied, this commit will <span class="correct">remove deprecated methods</span>
+- If applied, this commit will <span class="correct">release version 1.0.0</span>
+- If applied, this commit will <span class="correct">merge pull request #123 from user/branch</span>
 
 А с другим наклонением уже не работает:
 
