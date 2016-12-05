@@ -20,7 +20,7 @@ translator: "Ирина Нитченко"
 
 <a href='http://xkcd.com/1296/'><img src='http://imgs.xkcd.com/comics/git_commit.png' class="full-width" alt='xkcd: git commit'/></a>
 
-## Вступление: почему важны сообщения коммитов.
+## Вступление: почему важны сообщения коммитов
 
 Если посмотреть лог любого случайного репозитория, то в описании коммитов будет, в той или иной степени, беспорядок. Например, эти [шедевральные сообщения](https://github.com/spring-projects/spring-framework/commits/e5f4b49?author=cbeams) я оставил когда начал контрибьютить в Spring.
 
