@@ -272,8 +272,11 @@ UI гитхаба в курсе этого правила и предупреж�
 Так что когда вы пишите сообщение коммита в повелительном наклонении, вы следуете внутреннему соглашению гита:
 
 <span class="correct">- Refactor subsystem X for readability</span>
+
 <span class="correct">- Update getting started documentation</span>
+
 <span class="correct">- Remove deprecated methods</span>
+
 <span class="correct">- Release version 1.0.0</span>
 
 
