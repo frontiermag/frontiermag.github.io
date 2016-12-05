@@ -6,20 +6,26 @@
 .tag {
 }
 
-.post-header {
-  margin-top: -.4em;
-}
 
 .post-share {
   margin: 2rem 0;
 }
 
-.post p {
-  margin-bottom: 1.5em;
+.post * + * {
+  margin-top: 1.5em;
 }
+
+.post .post-header {
+  margin-top: -.4em;
+}
+
 
 .post img {
   margin: 0 auto;
+  max-width: 100%;
+}
+
+.full-width {
   width: 100%;
 }
 
@@ -40,8 +46,26 @@
   margin-left: -1em;
 }
 
+
+@media screen and (max-width: 640px) {
+  .post li {
+      margin-left: .5em;
+  }
+
+  .post blockquote {
+    left: 0;
+    margin: 2.4em -2em 1em -1em;
+  }
+
+  .post blockquote:before {
+    top: -.7em;
+    left: 1.4em;
+  }
+}
+
+
 .post pre {
-  font: 1em/1.5 PT Sans, sans-serif;
+  font: .75em/1.5 PT Sans, sans-serif;
   font-variant: normal;
   width: 100%;
   white-space: pre;
@@ -51,5 +75,5 @@
 
 .post pre.mono {
   font-family: monospace;
-  font-size: 0.75em;
+  font-size: .75em;
 }
