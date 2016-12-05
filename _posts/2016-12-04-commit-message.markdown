@@ -309,10 +309,10 @@ UI гитхаба в курсе этого правила и предупреж�
 
 А с другим наклонением уже не работает:
 
-If applied, this commit will fixed bug with Y
-If applied, this commit will changing behavior of X
-If applied, this commit will more fixes for broken stuff
-If applied, this commit will sweet new API methods
+- If applied, this commit will <span class="wrong">fixed bug with Y</span>
+- If applied, this commit will <span class="wrong">changing behavior of X</span>
+- If applied, this commit will <span class="wrong">more fixes for broken stuff</span>
+- If applied, this commit will <span class="wrong">sweet new API methods</span>
 
 >На заметку: повелительное наклонения важно только в заголовке. В теле пишите так, как удобнее
 
