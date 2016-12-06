@@ -39,37 +39,30 @@ title: Наследование в CSS, каскады и глобальная �
 
 ### Наследование и `font-family`
 
-<p>Despite protestations by many, CSS does not only provide a global scope. If
-it did, everything would look exactly the same.  Instead, CSS has a global
-scope and a local scope. Just as in JavaScript, the local scope has access to
-the parent and global scope.  In CSS, this facilitates
-<strong>inheritance</strong>.</p>
+Вопреки многочисленным сомнения, CSS даёт не только глобальную область видимости (скоуп). Если бы
+это было так, всё выглядело бы совершенно одинаково. Напротив, в CSS есть глобальная
+и локальная область видимости. Как и в JavaScript, локальный скоуп имеет доступ к родительскому
+и глобальному скоупам. В CSS это позволяет использовать **наследование**.
 
-<p>For instance, if I apply a <code>font-family</code> declaration to the root
-(read: global) <code>html</code> element, I can ensure that this rule applies
-to all ancestor elements within the document (with a few exceptions, to be
-addressed in the next section).</p>
+Например, если я применю свойство `font-family` к корневому (читай: глобальному)
+элементу `html`, то я знаю, что это правило применится и ко всем дочерним элементам
+в документе (с некоторыми исключениями, о которых в следующем разделе).
 
 {% highlight css %}
-```css
 html { font-family: sans-serif; }
 
-/* This rule is not needed:
+/* В этом правиле нет необходимости:
 
 p { font-family: sans-serif; }
 */
-```
 {% endhighlight %}
 
-<p>Just like in JavaScript, if I declare something within the local scope, it
-is not available to the global — or, indeed, any ancestral — scope, but it is
-available to the child scope (elements within <code>p</code>). In the next
-example, the <code>line-height</code> of <code>1.5</code> is not adopted by the
-<code>html</code> element. However, the <code>a</code> element inside the
-<code>p</code> does respect the <code>line-height</code> value.</p>
+Как и в JS, если я объявляю что-то в локальной области видимости, оно недоступно
+в глобальной (точнее, в любом родительском скоупе, но доступно во всех дочерних областях
+видимости, то есть, элементах внутри `p`). В следующем примере `line-height: 1.5`
+не применяется к `html`. Но `a` внутри `p` принимает это значение `line-height`.
 
 {% highlight css %}
-```css
 html { font-family: sans-serif; }
 
 p { line-height: 1.5; }
@@ -77,41 +70,31 @@ p { line-height: 1.5; }
 /* Это правило не нужно:
 p a { line-height: 1.5; }
 */
-```
 {% endhighlight %}
 
-<p>The great thing about inheritance is that you can establish the basis for a
-consistent visual design with very little code.  And these styles will even
-apply to HTML you have yet to write. Talk about future-proof!</p>
+Наследование -- клёвая штука потому, что вы можете установить базис
+для последовательного визуального дизайна, используя совсем немного кода.
+И эти стили применятся даже к HTML, который вы ещё не написали. Защищённое,
+даже от будущего!
 
-#### Альтернативы <p>There are other ways to apply common styles, of course.
+#### Альтернативы 
+
+Конечно, есть другие способы применить общие стили.
 
 Например, я мог бы создать класс `.sans-serif`...
 
 
 {% highlight css %}
-```css
 .sans-serif {
   font-family: sans-serif;
 }
-```
 {% endhighlight %}
 
 и применять его к элементам, у которых должен быть этот стиль:
 
-<pre class=" language-html"><code class=" language-html"><span class="token
-tag"><span class="token tag"><span class="token
-punctuation">&lt;</span>p</span> <span class="token
-attr-name">class</span><span class="token attr-value"><span class="token
-punctuation">=</span><span class="token punctuation">"</span>sans-serif<span
-class="token punctuation">"</span></span><span class="token
-punctuation">&gt;</span></span>Lorem ipsum.<span class="token tag"><span
-class="token tag"><span class="token punctuation">&lt;/</span>p</span><span
-class="token punctuation">&gt;</span></span>
-
-
-</code></pre>
-
+{% highlight html %}
+<p class="sans-serif">Lorem ipsum.</p>
+{% endhighlight %}
 
 <p>This affords me some control: I can pick and choose exactly which elements
 take this style and which don’t.</p> <p>Any opportunity for control is
