@@ -3,7 +3,7 @@ published: false
 layout: post
 tag: CSS
 original: https://www.smashingmagazine.com/2016/11/css-inheritance-cascade-global-scope-new-old-worst-best-friends/
-title: Наследование в CSS, каскады и глобальная область видимости: ваши новые старые худшие лучшие друзья
+title: "Наследование в CSS, каскады и глобальная область видимости: ваши новые старые худшие лучшие друзья"
 ---
 Я фанат [модульного
 дизайна](https://www.smashingmagazine.com/2016/06/designing-modular-ui-systems-via-style-guide-driven-development/)
