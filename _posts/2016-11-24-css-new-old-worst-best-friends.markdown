@@ -164,76 +164,48 @@ html {
 даже думать про `font-family`, `line-height` или `color`, пока они создают компоненты,
 если только они не делают исключений. И здесь появляется каскад.
 
-<h3 id="exceptions-based-styling">Exceptions-Based
-Styling <a href="#exceptions-based-styling" aria-label="Link to section
-'Exceptions-Based Styling'" class="sr hsl">Link</a></h3> <p>I’ll probably want
-my main heading to adopt the same <code>font-family</code>, <code>color</code>
-and possibly <code>line-height</code>. That’s taken care of using inheritance.
-But I’ll want its <code>font-size</code> to differ. Because the user agent
-already provides an enlarged <code>font-size</code> for <code>h1</code>
-elements (and it will be relative to the <code>125%</code> base font size I’ve
-set), it’s possible I don’t need to do anything here.</p> <p>However, should I
-want to tweak the font size of any element, I can. I take advantage of the
-global scope and only tweak what I need to in the local scope.</p>
+### Стили, основанные на исключениях
 
+Наверно, я хочу, чтобы главный заголовок был с той же `font-family`, `color`
+и, возможно, `line-height`, как и весь остальной текст. Об этом уже побеспокоилось
+наследование. Но я хочу, чтобы отличался `font-size`. Браузер по умолчанию применяет
+увеличенный `font-size` для элементов `h1` (125% по отношению к базовому размеру шрифта,
+который я указал), так что, может быть, мне и не придётся ничего делать.
 
+Тем не менее, если я захочу поиграться размером шрифта любого элемента, я смогу это сделать.
+Я получаю выгоду от глобальной области и меняю только то, что нужно, в локальной.
 
+{% highlight css }
 
+* {
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+}
 
+html {
+  font-size: 125%;
+  font-family: sans-serif;
+  line-height: 1.5;
+  color: #222;
+}
 
+h1 {
+  font-size: 3rem;
+} 
 
-<pre class=" language-css"><code class=" language-css"><span class="token
-selector">* </span><span class="token punctuation">{</span>
+{% endhighlight %}
 
+Если бы стили элементов были бы инкапсулированы по умолчанию, это было
+бы невозможным: мне пришлось бы явно добавить *все* стили шрифтов к `h1`.
+Или я мог бы разделить стили на отдельные классы, и применить каждый из них
+к h1 через пробел:
 
-<span class="token property">font-family</span><span class="token
-punctuation">:</span> inherit<span class="token punctuation">;</span> <span
-class="token property">line-height</span><span class="token
-punctuation">:</span> inherit<span class="token punctuation">;</span> <span
-class="token property">color</span><span class="token punctuation">:</span>
-inherit<span class="token punctuation">;</span> <span class="token
-punctuation">}</span>
+{% highlight html %}
 
-<span class="token selector">html </span><span class="token
-punctuation">{</span> <span class="token property">font-size</span><span
-class="token punctuation">:</span> <span class="token number">125%</span><span
-class="token punctuation">;</span> <span class="token
-property">font-family</span><span class="token punctuation">:</span>
-sans-serif<span class="token punctuation">;</span> <span class="token
-property">line-height</span><span class="token punctuation">:</span> <span
-class="token number">1.5</span><span class="token punctuation">;</span> <span
-class="token property">color</span><span class="token punctuation">:</span>
-<span class="token hexcode">#222</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<h1 class="Ff(sans) Fs(3) Lh(1point5) C(darkGrey)">Hello World</h1>
 
-<span class="token selector">h1 </span><span class="token punctuation">{</span>
-<span class="token property">font-size</span><span class="token
-punctuation">:</span> <span class="token number">3</span>rem<span class="token
-punctuation">;</span> <span class="token punctuation">}</span> </code></pre>
-
-
-<p>If the styles of CSS elements were encapsulated by default, this would not
-be possible: I’d have to add <em>all</em> of the font styles to <code>h1</code>
-explicitly. Alternatively, I could divide my styles up into separate classes
-and apply each to the <code>h1</code> as a space-separated value:</p>
-
-
-
-
-<pre class=" language-html"><code class=" language-html"><span class="token
-tag"><span class="token tag"><span class="token
-punctuation">&lt;</span>h1</span> <span class="token
-attr-name">class</span><span class="token attr-value"><span class="token
-punctuation">=</span><span class="token punctuation">"</span>Ff(sans) Fs(3)
-Lh(1point5) C(darkGrey)<span class="token punctuation">"</span></span><span
-class="token punctuation">&gt;</span></span>Hello World<span class="token
-tag"><span class="token tag"><span class="token
-punctuation">&lt;/</span>h1</span><span class="token
-punctuation">&gt;</span></span>
-
-
-</code></pre>
-
+{% endhighlight %}
 
 <p>Either way, it’s more work and a styled <code>h1</code> would be the only
 outcome. Using the cascade, I’ve styled <em>most</em> elements the way I want
