@@ -97,39 +97,29 @@ p a { line-height: 1.5; }
 <p class="sans-serif">Lorem ipsum.</p>
 {% endhighlight %}
 
-<p>This affords me some control: I can pick and choose exactly which elements
-take this style and which don’t.</p> <p>Any opportunity for control is
-seductive, but there are clear issues. Not only do I have to manually apply the
-class to any element that should take it (which means knowing what the class is
-to begin with), but in this case I’ve effectively forgone the possibility of
-supporting dynamic content: Neither WYSIWYG editors nor Markdown parsers
-provide <code>sans-serif</code> classes to arbitrary <code>p</code> elements by
-default.</p> <p>That <code>class="sans-serif"</code> is not such a distant
-relative of <code>style="font-family: sans-serif"</code> — except that the
-former means adding code to both the style sheet <em>and</em> the HTML. Using
-inheritance, we can do less of one and none of the other. Instead of writing
-out classes for each font style, we can just apply any we want to the
-<code>html</code> element in one declaration:</p>
+Так у меня есть немного контроля: я могу довольно точно выбирать, к каким
+элементам применится стиль, а к каким нет.
 
+Любая возможность контроля манит,
+но здесь есть явные проблемы. Не только мне придётся вручную применять класс
+к любому элементу, которому нужны эти стили (а это также значит, что я должен
+знать о существовании класса, для начала), но и в этом случае мне придётся
+забыть о поддержке динамического контента: ни WYSIWYG-редакторы, ни парсеры
+маркдауна не добавляют класс `sans-serif` к обычным `p` по умолчанию.
 
+Такой `sans-serif` -- близкий родственник `style="font-family: sans-serif"`,
+разве что в случае с классом придётся добавлять код *и* в файлы стилей, *и* в HTML.
+А с наследованием мы можем писать меньше кода в одном, и никакого в другом.
+Вместо того, чтобы писать классы для каждого стиля шрифта, мы можем просто применить
+такой, как мы хотим, к элементу `html` одной декларацией:
 
-
-
-<pre class=" language-css"><code class=" language-css"><span class="token
-selector">html </span><span class="token punctuation">{</span>
-
-
-<span class="token property">font-size</span><span class="token
-punctuation">:</span> <span class="token number">125%</span><span class="token
-punctuation">;</span> <span class="token property">font-family</span><span
-class="token punctuation">:</span> sans-serif<span class="token
-punctuation">;</span> <span class="token property">line-height</span><span
-class="token punctuation">:</span> <span class="token number">1.5</span><span
-class="token punctuation">;</span> <span class="token
-property">color</span><span class="token punctuation">:</span> <span
-class="token hexcode">#222</span><span class="token punctuation">;</span> <span
-class="token punctuation">}</span> </code></pre>
-
+{% highlight css %}
+html {
+  font-size: 125%;
+  font-family: sans-serif;
+  line-height: 1.5;
+  color: #222;
+}
 
 <h3 id="the-inherit-keyword">The <code>inherit</code> Keyword <a
 href="#the-inherit-keyword" aria-label="Link to section 'The inherit Keyword'"
