@@ -121,65 +121,50 @@ html {
   color: #222;
 }
 
-<h3 id="the-inherit-keyword">The <code>inherit</code> Keyword <a
-href="#the-inherit-keyword" aria-label="Link to section 'The inherit Keyword'"
-class="sr hsl">Link</a></h3>
+### Ключевое слово `inherit`
 
+Некоторые виды свойств не наследуются по умолчанию, а некоторые элементы
+не наследуют некоторые свойства. Но в этом случае можно использовать `[имя свойства]: inherit`,
+чтобы заставить наследоваться в большинстве случаев.
 
-<p>Some types of properties are not inherited by default, and some elements do
-not inherit some properties. But you can use <code>[property name]:
-inherit</code> to force inheritance in some cases.</p> <p>For example, the
-<code>input</code> element doesn’t inherit any of the font properties in the
-previous example. Nor does <code>textarea</code>. In order to make sure all
-elements inherit these properties from the global scope, I can use the
-universal selector and the <code>inherit</code> keyword. This way, I get the
-most mileage from inheritance.</p>
+Например, элемент `input` не наследует ни одно из свойств шрифта в предыдущем примере.
+Чтобы убедиться, что все элементы наследуют эти свойства из глобальной области видимости,
+я могу воспользоваться универсальным селектором и ключевым словом `inherit`. Таким образом,
+я получу больше выгоды от наследования.
 
+{% hightlight css %}
 
+* {
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+}
 
+html {
+  font-size: 125%;
+  font-family: sans-serif;
+  line-height: 1.5;
+  color: #222;
+} 
 
+{% endhighlight %}
 
-<pre class=" language-css"><code class=" language-css"><span class="token
-selector">* </span><span class="token punctuation">{</span>
+Обратите внимание, что я не стал писать `font-size`. Я не хочу, чтобы
+`font-size` наследовался напрямую, потому что тогда это перезапишет
+стили браузера для заголовков, элемента `small` и тому подобного. Таким образом,
+я сэкономил строчку кода и могу использовать стили браузера, если захочу.
 
+Другое свойство, которое я не хочу наследовать, это `font-style`: не хочется
+сбрасывать *италик* `em`ов, чтобы просто заново его написать. Это бесполезная работа,
+и в результате будет больше кода, чем нужно.
 
+Теперь, всё либо наследует, либо *вынуждено* наследовать стили шрифтов, как я хочу.
+Мы сильно продвинулись в продвижении последовательного стиля, по всему проекту,
+просто с двумя блоками деклараций. С этого момента, ни одному разработчику не придётся
+даже думать про `font-family`, `line-height` или `color`, пока они создают компоненты,
+если только они не делают исключений. И здесь появляется каскад.
 
-
-<span class="token property">font-family</span><span class="token
-punctuation">:</span> inherit<span class="token punctuation">;</span> <span
-class="token property">line-height</span><span class="token
-punctuation">:</span> inherit<span class="token punctuation">;</span> <span
-class="token property">color</span><span class="token punctuation">:</span>
-inherit<span class="token punctuation">;</span> <span class="token
-punctuation">}</span>
-
-<span class="token selector">html </span><span class="token
-punctuation">{</span> <span class="token property">font-size</span><span
-class="token punctuation">:</span> <span class="token number">125%</span><span
-class="token punctuation">;</span> <span class="token
-property">font-family</span><span class="token punctuation">:</span>
-sans-serif<span class="token punctuation">;</span> <span class="token
-property">line-height</span><span class="token punctuation">:</span> <span
-class="token number">1.5</span><span class="token punctuation">;</span> <span
-class="token property">color</span><span class="token punctuation">:</span>
-<span class="token hexcode">#222</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span> </code></pre>
-
-
-<p>Note that I’ve omitted <code>font-size</code>. I don’t want
-<code>font-size</code> to be inherited directly because it would override
-user-agent styles for heading elements, the <code>small</code> element and
-others. This way, I save a line of code and can defer to user-agent styles if I
-should want.</p> <p>Another property I would not want to inherit is
-<code>font-style</code>: I don’t want to unset the italicization of
-<code>em</code>s just to code it back in again. That would be wasted work and
-result in more code than I need.</p> <p>Now, everything either inherits or is
-<em>forced</em> to inherit the font styles I want them to. We’ve gone a long
-way to propagating a consistent brand, project-wide, with just two declaration
-blocks. From this point onwards, no developer has to even think about
-<code>font-family</code>, <code>line-height</code> or <code>color</code> while
-constructing components, unless they are making exceptions. This is where the
-cascade comes in.</p> <h3 id="exceptions-based-styling">Exceptions-Based
+<h3 id="exceptions-based-styling">Exceptions-Based
 Styling <a href="#exceptions-based-styling" aria-label="Link to section
 'Exceptions-Based Styling'" class="sr hsl">Link</a></h3> <p>I’ll probably want
 my main heading to adopt the same <code>font-family</code>, <code>color</code>
