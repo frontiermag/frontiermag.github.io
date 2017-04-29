@@ -86,7 +86,7 @@ translator: "Ирина Нитченко"
 > Не забывайте,
 [все](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 [это](https://www.git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#Commit-Guidelines)
-[уже](https://github.com/torvalds/subsurface/blob/master/README#L82-109)
+[уже](https://github.com/torvalds/subsurface-for-dirk/blob/master/README#L92-L120)
 [было](http://who-t.blogspot.ru/2009/12/on-commit-messages.html)
 [сказано](https://github.com/erlang/otp/wiki/writing-good-commit-messages)
 [раньше](https://github.com/spring-projects/spring-framework/blob/30bce7/CONTRIBUTING.md#format-commit-messages)
