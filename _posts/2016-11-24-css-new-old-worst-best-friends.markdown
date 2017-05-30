@@ -3,7 +3,7 @@ published: false
 layout: post
 tag: CSS
 original: https://www.smashingmagazine.com/2016/11/css-inheritance-cascade-global-scope-new-old-worst-best-friends/
-title: Наследование в CSS, каскады и глобальная область видимости: ваши новые старые худшие лучшие друзья
+title: "Наследование в CSS, каскады и глобальная область видимости: ваши новые старые худшие лучшие друзья"
 ---
 Я фанат [модульного
 дизайна](https://www.smashingmagazine.com/2016/06/designing-modular-ui-systems-via-style-guide-driven-development/)
@@ -97,168 +97,115 @@ p a { line-height: 1.5; }
 <p class="sans-serif">Lorem ipsum.</p>
 {% endhighlight %}
 
-<p>This affords me some control: I can pick and choose exactly which elements
-take this style and which don’t.</p> <p>Any opportunity for control is
-seductive, but there are clear issues. Not only do I have to manually apply the
-class to any element that should take it (which means knowing what the class is
-to begin with), but in this case I’ve effectively forgone the possibility of
-supporting dynamic content: Neither WYSIWYG editors nor Markdown parsers
-provide <code>sans-serif</code> classes to arbitrary <code>p</code> elements by
-default.</p> <p>That <code>class="sans-serif"</code> is not such a distant
-relative of <code>style="font-family: sans-serif"</code> — except that the
-former means adding code to both the style sheet <em>and</em> the HTML. Using
-inheritance, we can do less of one and none of the other. Instead of writing
-out classes for each font style, we can just apply any we want to the
-<code>html</code> element in one declaration:</p>
+Так у меня есть немного контроля: я могу довольно точно выбирать, к каким
+элементам применится стиль, а к каким нет.
 
+Любая возможность контроля манит,
+но здесь есть явные проблемы. Не только мне придётся вручную применять класс
+к любому элементу, которому нужны эти стили (а это также значит, что я должен
+знать о существовании класса, для начала), но и в этом случае мне придётся
+забыть о поддержке динамического контента: ни WYSIWYG-редакторы, ни парсеры
+маркдауна не добавляют класс `sans-serif` к обычным `p` по умолчанию.
 
+Такой `sans-serif` -- близкий родственник `style="font-family: sans-serif"`,
+разве что в случае с классом придётся добавлять код *и* в файлы стилей, *и* в HTML.
+А с наследованием мы можем писать меньше кода в одном, и никакого в другом.
+Вместо того, чтобы писать классы для каждого стиля шрифта, мы можем просто применить
+такой, как мы хотим, к элементу `html` одной декларацией:
 
+{% highlight css %}
+html {
+  font-size: 125%;
+  font-family: sans-serif;
+  line-height: 1.5;
+  color: #222;
+}
 
+### Ключевое слово `inherit`
 
-<pre class=" language-css"><code class=" language-css"><span class="token
-selector">html </span><span class="token punctuation">{</span>
+Некоторые виды свойств не наследуются по умолчанию, а некоторые элементы
+не наследуют некоторые свойства. Но в этом случае можно использовать `[имя свойства]: inherit`,
+чтобы заставить наследоваться в большинстве случаев.
 
+Например, элемент `input` не наследует ни одно из свойств шрифта в предыдущем примере.
+Чтобы убедиться, что все элементы наследуют эти свойства из глобальной области видимости,
+я могу воспользоваться универсальным селектором и ключевым словом `inherit`. Таким образом,
+я получу больше выгоды от наследования.
 
-<span class="token property">font-size</span><span class="token
-punctuation">:</span> <span class="token number">125%</span><span class="token
-punctuation">;</span> <span class="token property">font-family</span><span
-class="token punctuation">:</span> sans-serif<span class="token
-punctuation">;</span> <span class="token property">line-height</span><span
-class="token punctuation">:</span> <span class="token number">1.5</span><span
-class="token punctuation">;</span> <span class="token
-property">color</span><span class="token punctuation">:</span> <span
-class="token hexcode">#222</span><span class="token punctuation">;</span> <span
-class="token punctuation">}</span> </code></pre>
+{% highlight css %}
 
+* {
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+}
 
-<h3 id="the-inherit-keyword">The <code>inherit</code> Keyword <a
-href="#the-inherit-keyword" aria-label="Link to section 'The inherit Keyword'"
-class="sr hsl">Link</a></h3>
+html {
+  font-size: 125%;
+  font-family: sans-serif;
+  line-height: 1.5;
+  color: #222;
+} 
 
+{% endhighlight %}
 
-<p>Some types of properties are not inherited by default, and some elements do
-not inherit some properties. But you can use <code>[property name]:
-inherit</code> to force inheritance in some cases.</p> <p>For example, the
-<code>input</code> element doesn’t inherit any of the font properties in the
-previous example. Nor does <code>textarea</code>. In order to make sure all
-elements inherit these properties from the global scope, I can use the
-universal selector and the <code>inherit</code> keyword. This way, I get the
-most mileage from inheritance.</p>
+Обратите внимание, что я не стал писать `font-size`. Я не хочу, чтобы
+`font-size` наследовался напрямую, потому что тогда это перезапишет
+стили браузера для заголовков, элемента `small` и тому подобного. Таким образом,
+я сэкономил строчку кода и могу использовать стили браузера, если захочу.
 
+Другое свойство, которое я не хочу наследовать, это `font-style`: не хочется
+сбрасывать *италик* `em`ов, чтобы просто заново его написать. Это бесполезная работа,
+и в результате будет больше кода, чем нужно.
 
+Теперь, всё либо наследует, либо *вынуждено* наследовать стили шрифтов, как я хочу.
+Мы сильно продвинулись в продвижении последовательного стиля, по всему проекту,
+просто с двумя блоками деклараций. С этого момента, ни одному разработчику не придётся
+даже думать про `font-family`, `line-height` или `color`, пока они создают компоненты,
+если только они не делают исключений. И здесь появляется каскад.
 
+### Стили, основанные на исключениях
 
+Наверно, я хочу, чтобы главный заголовок был с той же `font-family`, `color`
+и, возможно, `line-height`, как и весь остальной текст. Об этом уже побеспокоилось
+наследование. Но я хочу, чтобы отличался `font-size`. Браузер по умолчанию применяет
+увеличенный `font-size` для элементов `h1` (125% по отношению к базовому размеру шрифта,
+который я указал), так что, может быть, мне и не придётся ничего делать.
 
-<pre class=" language-css"><code class=" language-css"><span class="token
-selector">* </span><span class="token punctuation">{</span>
+Тем не менее, если я захочу поиграться размером шрифта любого элемента, я смогу это сделать.
+Я получаю выгоду от глобальной области и меняю только то, что нужно, в локальной.
 
+{% highlight css }
 
+* {
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+}
 
+html {
+  font-size: 125%;
+  font-family: sans-serif;
+  line-height: 1.5;
+  color: #222;
+}
 
-<span class="token property">font-family</span><span class="token
-punctuation">:</span> inherit<span class="token punctuation">;</span> <span
-class="token property">line-height</span><span class="token
-punctuation">:</span> inherit<span class="token punctuation">;</span> <span
-class="token property">color</span><span class="token punctuation">:</span>
-inherit<span class="token punctuation">;</span> <span class="token
-punctuation">}</span>
+h1 {
+  font-size: 3rem;
+} 
 
-<span class="token selector">html </span><span class="token
-punctuation">{</span> <span class="token property">font-size</span><span
-class="token punctuation">:</span> <span class="token number">125%</span><span
-class="token punctuation">;</span> <span class="token
-property">font-family</span><span class="token punctuation">:</span>
-sans-serif<span class="token punctuation">;</span> <span class="token
-property">line-height</span><span class="token punctuation">:</span> <span
-class="token number">1.5</span><span class="token punctuation">;</span> <span
-class="token property">color</span><span class="token punctuation">:</span>
-<span class="token hexcode">#222</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span> </code></pre>
+{% endhighlight %}
 
+Если бы стили элементов были бы инкапсулированы по умолчанию, это было
+бы невозможным: мне пришлось бы явно добавить *все* стили шрифтов к `h1`.
+Или я мог бы разделить стили на отдельные классы, и применить каждый из них
+к h1 через пробел:
 
-<p>Note that I’ve omitted <code>font-size</code>. I don’t want
-<code>font-size</code> to be inherited directly because it would override
-user-agent styles for heading elements, the <code>small</code> element and
-others. This way, I save a line of code and can defer to user-agent styles if I
-should want.</p> <p>Another property I would not want to inherit is
-<code>font-style</code>: I don’t want to unset the italicization of
-<code>em</code>s just to code it back in again. That would be wasted work and
-result in more code than I need.</p> <p>Now, everything either inherits or is
-<em>forced</em> to inherit the font styles I want them to. We’ve gone a long
-way to propagating a consistent brand, project-wide, with just two declaration
-blocks. From this point onwards, no developer has to even think about
-<code>font-family</code>, <code>line-height</code> or <code>color</code> while
-constructing components, unless they are making exceptions. This is where the
-cascade comes in.</p> <h3 id="exceptions-based-styling">Exceptions-Based
-Styling <a href="#exceptions-based-styling" aria-label="Link to section
-'Exceptions-Based Styling'" class="sr hsl">Link</a></h3> <p>I’ll probably want
-my main heading to adopt the same <code>font-family</code>, <code>color</code>
-and possibly <code>line-height</code>. That’s taken care of using inheritance.
-But I’ll want its <code>font-size</code> to differ. Because the user agent
-already provides an enlarged <code>font-size</code> for <code>h1</code>
-elements (and it will be relative to the <code>125%</code> base font size I’ve
-set), it’s possible I don’t need to do anything here.</p> <p>However, should I
-want to tweak the font size of any element, I can. I take advantage of the
-global scope and only tweak what I need to in the local scope.</p>
+{% highlight html %}
 
+<h1 class="Ff(sans) Fs(3) Lh(1point5) C(darkGrey)">Hello World</h1>
 
-
-
-
-
-
-<pre class=" language-css"><code class=" language-css"><span class="token
-selector">* </span><span class="token punctuation">{</span>
-
-
-<span class="token property">font-family</span><span class="token
-punctuation">:</span> inherit<span class="token punctuation">;</span> <span
-class="token property">line-height</span><span class="token
-punctuation">:</span> inherit<span class="token punctuation">;</span> <span
-class="token property">color</span><span class="token punctuation">:</span>
-inherit<span class="token punctuation">;</span> <span class="token
-punctuation">}</span>
-
-<span class="token selector">html </span><span class="token
-punctuation">{</span> <span class="token property">font-size</span><span
-class="token punctuation">:</span> <span class="token number">125%</span><span
-class="token punctuation">;</span> <span class="token
-property">font-family</span><span class="token punctuation">:</span>
-sans-serif<span class="token punctuation">;</span> <span class="token
-property">line-height</span><span class="token punctuation">:</span> <span
-class="token number">1.5</span><span class="token punctuation">;</span> <span
-class="token property">color</span><span class="token punctuation">:</span>
-<span class="token hexcode">#222</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token selector">h1 </span><span class="token punctuation">{</span>
-<span class="token property">font-size</span><span class="token
-punctuation">:</span> <span class="token number">3</span>rem<span class="token
-punctuation">;</span> <span class="token punctuation">}</span> </code></pre>
-
-
-<p>If the styles of CSS elements were encapsulated by default, this would not
-be possible: I’d have to add <em>all</em> of the font styles to <code>h1</code>
-explicitly. Alternatively, I could divide my styles up into separate classes
-and apply each to the <code>h1</code> as a space-separated value:</p>
-
-
-
-
-<pre class=" language-html"><code class=" language-html"><span class="token
-tag"><span class="token tag"><span class="token
-punctuation">&lt;</span>h1</span> <span class="token
-attr-name">class</span><span class="token attr-value"><span class="token
-punctuation">=</span><span class="token punctuation">"</span>Ff(sans) Fs(3)
-Lh(1point5) C(darkGrey)<span class="token punctuation">"</span></span><span
-class="token punctuation">&gt;</span></span>Hello World<span class="token
-tag"><span class="token tag"><span class="token
-punctuation">&lt;/</span>h1</span><span class="token
-punctuation">&gt;</span></span>
-
-
-</code></pre>
-
+{% endhighlight %}
 
 <p>Either way, it’s more work and a styled <code>h1</code> would be the only
 outcome. Using the cascade, I’ve styled <em>most</em> elements the way I want
